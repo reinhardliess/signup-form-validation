@@ -1,0 +1,13 @@
+# Notepad++ session files
+*.npps
+
+# Temporary backup files
+*.bak
+
+# additonal files, only local
+files/
+
+# Autosave files 
+*.*~
+
+# End of Rard
