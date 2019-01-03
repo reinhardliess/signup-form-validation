@@ -2,8 +2,13 @@
 
 // description of project
 
+
+// symbolic constants
+
+// input field indexes in aInput[]
 const OTHER_TITLE = 2;
 const CC_NUM = 3;
+
 const DEFAULT_PRICE = 100;
 
 // Activity checkboxes:
@@ -19,8 +24,8 @@ const aActivity= [
 
 // control data structure for all input edit/email fields
 // id: input field id
-// validate: array of regular expressions for validation; sorted by less to more specific
-// mode: position in the DOM where the validation message
+// validate: array of regular expressions/messages for validation; sorted by less to more specific
+// mode: position in the DOM where the validation message is created
 // specialCond: optional pre-condition for validation
 const aInput = [
   {
@@ -59,7 +64,7 @@ const aInput = [
     id: 'other-title',
     validate: [
       {
-        regex: /^[a-zA-Z]{3,}$/,
+        regex: /^.{3,}$/,
         msg: `Please enter an 'other' job role` 
       },
     ],
@@ -101,19 +106,24 @@ const aInput = [
   }
 ];
 
-const $jobrole   = $(`#${aInput[2].id}`);
-const $ccSection = $('#credit-card');
-const $paypalSection = $ccSection.next('div');
+// cached jQuery selectors
+const $jobrole        = $(`#${aInput[OTHER_TITLE].id}`);
+const $ccSection      = $('#credit-card');
+const $paypalSection  = $ccSection.next('div');
 const $bitcoinSection = $paypalSection.next('div');
+const $tshirtColor    = $('#colors-js-puns');
 
 // functions
 const formatErrorMessage = msg => `&starf; ${msg} &starf;`;
 
 const isPaymentCreditCard = () => $('#payment option:selected').val() === 'credit card';
 
+// Fix for Firefox not resetting forms on refresh 
+// and thus producing a potential calculation error if activities are checked
+$('form').trigger('reset');
+
+// Job role dropdown listbox
 $('#title').on('change', function() {
-  
-  // const $jobrole = $(`#${aInput[2].id}`);
   
   if ( $(this).val() === 'other') {
     $jobrole.fadeIn('fast');
@@ -126,7 +136,7 @@ $('#title').on('change', function() {
 });
 
 // shows/hides the relevant payment section(s) depending on user choice
-// ccFocus: flag used to only set focus to cc-num field when activated from select
+// ccFocus: flag used to only set focus to cc-num field when activated from dropdown listbox
 const updatePayment = (ccFocus = '') => {
   
   switch ( $('#payment option:selected').val() ) {
@@ -152,16 +162,58 @@ const updatePayment = (ccFocus = '') => {
   
 }
 
+// Payment type dropdown listbox
 $('#payment').on('change', function() {
   
   updatePayment('ccnumFocus');
   
 });
 
+// filters t-shirt info color dropdown listbox 
+const updateTshirtColor = filterRegex => {
+  
+  const $colors = $('#color option');
+  let first = 0;
+  
+  for(let i = 0, l = $colors.length; i < l; i++) {
+    let $option = $colors.eq(i);
+    if ( filterRegex.test( $option.text() ) ) {
+      $option.attr('hidden', false);
+      if (++first === 1) {
+        $option.attr('selected', true);
+      }
+    } else { 
+      $option.attr({ hidden: true, selected: false });
+      
+    }
+  }
+}
 
-// Validates text/email input with inputId
+// Filters t-shirt design dropdown listbox
+$('#design').on('change', function() {
+  
+  switch ( $('#design option:selected').val() ) {
+  
+    case 'js puns':
+      updateTshirtColor(/JS Puns/)
+      $tshirtColor.show();
+      break;
+    case 'heart js':
+      updateTshirtColor(/I.+JS/)
+      $tshirtColor.show();
+      break;
+    default:
+      $tshirtColor.hide();
+
+  }
+  
+});
+
+
+// Validates text/email input with given inputId
 const validateRegex = inputId => {
 
+  // lookup object for the given inputId
   const oInput = aInput.find( obj => obj.id === inputId);
   
   // If special condition is set, it must be true for validation to be executed
@@ -183,6 +235,7 @@ const validateRegex = inputId => {
   }
 
   if (msg) {
+    // Show validation message, hide ok icon
     msg = formatErrorMessage(msg);
     $elem.removeClass('val-ok val-ok-input');
     if (oInput.mode === 'label') {
@@ -192,7 +245,7 @@ const validateRegex = inputId => {
     }
 
   } else {
-    // Hide error message, show ok icon
+    // Hide validation message, show ok icon
     $elem.addClass('val-ok val-ok-input');
     if (oInput.mode === 'label') {
       $(`label[for=${inputId}] span`).hide();
@@ -204,13 +257,14 @@ const validateRegex = inputId => {
   return !msg;
 }
 
-
+// Perform real-time validation for all text/email fields
 $('input[type=text], input[type=email]').on("focus input", function() {
 
   validateRegex( $(this).attr('id') );
 
 });
 
+// At least one activity must be selected
 const validateActivities = () => {
   
   const checked = $('input[type=checkbox]:checked').length > 0;
@@ -218,15 +272,15 @@ const validateActivities = () => {
   
   if (checked) {
     $legend.addClass('val-ok val-ok-legend');
-    $legend.children(0).html('');
+    $legend.children(0).hide();
   } else {
     $legend.removeClass('val-ok val-ok-legend');
-    $legend.children(0).html( formatErrorMessage('Please choose at least one activity') );
+    $legend.children(0).html( formatErrorMessage('Please choose at least one activity') ).show();
   }
   return checked;
 }
 
-
+// Calculate total price, disable conflicting activities if necessary
 $('input[type=checkbox]').on("change", function() {
   
   const $checkboxes = $('input[type=checkbox]');
@@ -259,7 +313,7 @@ $('input[type=checkbox]').on("change", function() {
   $('.price').text(`Total: $${priceTotal}`);
 });
 
-
+// Submits form only if it validates ok
 $('form').submit(function(event) {
   
   let valOk = true;
@@ -289,26 +343,19 @@ const createMessages = () => {
 
 }
 
-
-
-
-// Create all validation messages in the DOM
 createMessages();
 
 $jobrole.hide();
+$tshirtColor.hide();
 
 // set defaults for the payment section
 $('#payment option[value="select_method"]').attr('hidden', true);
 $('#payment option[value="credit card"]').attr('selected', true);
 updatePayment();
 
-// make sure 'expiration date select' is on its own row if validation messages are displayed 
+// make sure 'expiration date dropdown' is on its own row if validation messages are displayed 
 $('label[for="exp-month"]').prepend('<div class="clearfix"></div>');
 
 $('.activities').after('<div class="price">Total: $0</price></div>');
 
 $('#name').focus();
-
-
-
-
