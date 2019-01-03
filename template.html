@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Register for Full Stack Conf</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet" type="text/css">
-	<link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<div class="container">
@@ -21,10 +20,11 @@
       <fieldset>         
         <legend>Basic Info</legend>
         
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="user_name">
+      <label for="name">Name:<span class="err-inline err-styles">&starf; Please enter your name (Sorry, no numbers or symbols) &starf;</span></label>
+        <input class="val-ok val-ok-input" type="text" id="name" name="user_name">
         
-        <label for="mail">Email:</label>
+        <!-- <label for="mail">Email:<span class="err-inline err-styles">&starf; Please enter a valid email address (You're missing an @ sign) &starf;</span></label> -->
+        <label for="mail">Email:<span class="err-inline err-styles">&starf; Please enter a valid email address: e.g. alexdoe@<em>domain.com</em> &starf;</span></label>
         <input type="email" id="mail" name="user_email">
         
         <label for="title">Job Role</label>
@@ -36,7 +36,8 @@
           <option value="student">Student</option>
           <option value="other">Other</option>  
         </select>
-        <input type="text" id="other-title" name="user_jobrole" placeholder="Your Job Role">
+        <input type="text" id="jobrole" name="user_jobrole">
+        <span class="err-newline err-styles">&starf; Please enter an &lsquo;other&rsquo; job role &starf;</span>
       </fieldset>
       
       <fieldset class="shirt">
@@ -75,22 +76,23 @@
       </fieldset>
 
       <fieldset class="activities">
-        <legend>Register for Activities</legend>
+      <legend class="val-ok val-ok-legend">Register for Activities<span class="err-styles err-inline">&starf; Please choose at least one activity &starf;</span></legend>
         <label><input type="checkbox" name="all"> Main Conference — $200</label>
         <label><input type="checkbox" name="js-frameworks"> JavaScript Frameworks Workshop — Tuesday 9am-12pm, $100</label>
         <label><input type="checkbox" name="js-libs"> JavaScript Libraries Workshop — Tuesday 1pm-4pm, $100</label>
-        <label><input type="checkbox" name="express"> Express Workshop — Tuesday 9am-12pm, $100</label>
+        <label class="is-disabled"><input type="checkbox" name="express" disabled> Express Workshop — Tuesday 9am-12pm, $100</label>
         <label><input type="checkbox" name="node"> Node.js Workshop — Tuesday 1pm-4pm, $100</label>          
         <label><input type="checkbox" name="build-tools"> Build tools Workshop — Wednesday 9am-12pm, $100</label>
         <label><input type="checkbox" name="npm"> npm Workshop — Wednesday 1pm-4pm, $100</label>
                   	
       </fieldset>
+      <div class="price">Total: $0</price></div>
       <fieldset>
         <legend>Payment Info</legend>
 
         <label for="payment">I'm going to pay with:</label>
         <select id="payment" name="user_payment">
-          <option value="select_method">Select Payment Method</option>
+          <option value="select_method" hidden>Select Payment Method</option>
           <option value="credit card">Credit Card</option>
           <option value="paypal">PayPal</option>
           <option value="bitcoin">Bitcoin</option>
@@ -100,19 +102,23 @@
 
           <div class="col-6 col">
             <label for="cc-num">Card Number:</label>
-        	  <input id="cc-num" name="user_cc-num" type="text">
+        	  <input id="cc-num" name="user_cc-num" type="te1xt">
+            <span class="err-newline err-styles">&starf; Please enter a valid credit card number &starf;</span>
           </div>
 
           <div class="col-3 col">
             <label for="zip">Zip Code:</label>
             <input id="zip" name="user_zip" type="text"> 
+            <span class="err-newline err-styles">&starf; Please enter a five digit zip code &starf;</span>
           </div>
 
           <div class="col-3 col">
             <label for="cvv">CVV:</label>
-            <input id="cvv" name="user_cvv" type="text"> 
+            <input id="cvv" name="user_cvv" type="text">            
+            <span class="err-newline err-styles">&starf; Please enter a three digit CVV &starf;</span>
+ 
           </div>
-
+          <div class="clearfix"></div>
           <label for="exp-month">Expiration Date:</label>
           <select id="exp-month" name="user_exp-month">
             <option value="1">1 - January</option>
@@ -153,7 +159,8 @@
     </form>
 
 	</div>
+  <!-- <script src="js/jquery-3.3.1.min.js"></script> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script src="js/script.js"></script>
+  <!-- <script src="js/script.js"></script> -->
 </body>
 </html>

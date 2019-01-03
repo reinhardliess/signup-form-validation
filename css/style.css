@@ -13,7 +13,8 @@ button {
 }
 
 body {
-  font: 1em/1.5;
+  /* font: 1em/1.5; illegal property (RL)*/
+  font: 1em/1.5 'Roboto', sans-serif;
   color: #184f68;
 	background: #accbd9;
 }
@@ -91,7 +92,8 @@ input {
 }
 
 input:focus {
-	background: #fff;
+	/* background: #fff; resets background-image (RL)*/
+	background-color: #fff;
 	border-color: #5e97b0;
 	transition: border-color .4s, background-color .4s;
 }
@@ -134,6 +136,45 @@ button:hover {
 .credit-card {
 	margin-top: 1.25em;
 }
+
+/* Additional styles (RL) */
+
+.isDisabled {
+  text-decoration: line-through;
+  color: #555;
+}
+
+.err-styles {
+  color: #DC5353;
+  font-size: 0.8rem;
+}
+
+.err-inline {
+  float: right;
+}
+
+.err-newline {
+  display: inline-block;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.val-ok {
+  background-image: url(../img/ok-val.png);
+  background-repeat: no-repeat;
+}
+
+.val-ok-input {
+  background-position: 98% center;
+  background-size: 16px; 
+}
+
+.val-ok-legend {
+  background-position: 35% 70%;
+  background-size: 16px;
+}
+
+/* (RL) end */
 
 /* ================================= 
   Helper Classes
