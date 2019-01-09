@@ -2,7 +2,9 @@
 
 A live version of this project can be found [here](https://rliess.github.io/js-techdegree-project3/).
 
-The goal of this project was to enhance to enhance an interactive registration form for a fictional conference called "FullStack Conference".
+Installation: Just download and open index.html with your favorite web browser.
+
+The goal of this project was to enhance an interactive registration form for a fictional conference called "FullStack Conference".
 
 ## Basic Project requirements
 
@@ -72,10 +74,8 @@ The following fields should have some obvious form of an error indication:
 ### Some Additional remarks
 
 * style.css: additional styles are marked with ´(RL)´
-* 
-* 
-* 
-* 
+* All text/email fields are validated in real time, displaying validation messages as needed. Some fields (name, email) display different messages according to the user's input.
+* The validation is performed dynamically and controlled by the `aInput[]` array which contains all necessary regular expressions, validation messages and additional program logic where necessary 
     
     
 ### Some additional coding conventions

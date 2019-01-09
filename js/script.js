@@ -196,6 +196,8 @@ const updateTshirtColor = filterRegex => {
       $option.attr('hidden', false);
       if (++first === 1) {
         $option.attr('selected', true);
+        // Set value of color dropdown directly (Firefox fix)
+        $('#color').val( $option.val() );
       }
     } else { 
       $option.attr({ hidden: true, selected: false });
