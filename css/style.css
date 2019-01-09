@@ -40,6 +40,9 @@ a {
 form {
 	padding: .875em 1.875em 1.875em;
 	background: #85b5ca;
+  /* (RL) */
+  border-radius: 20px; 
+  margin-bottom: 60px;
 }
 
 fieldset,
@@ -109,6 +112,8 @@ button {
 	background: #22627e;
 	margin: 1.25em 0 .5em;
 	cursor: pointer;
+  /* (RL) */
+  border-radius: 5px;
 }
 
 button:hover {

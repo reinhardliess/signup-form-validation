@@ -1,7 +1,20 @@
 "use strict";
 
-// description of project
+/******************************************
+Treehouse Techdegree:
+FSJS project 3 - Interactive form
+Reinhard Liess, 2019
+******************************************/
 
+/* Some additional conventions
+
+* constants are all uppercase, spaced out with underscores for readability
+* In for loop conditions, the length of DOM collections is cached in a variable
+* Additional spaces around nested function calls 
+
+*/ 
+
+// Global declarations
 
 // symbolic constants
 
@@ -11,7 +24,7 @@ const CC_NUM = 3;
 
 const DEFAULT_PRICE = 100;
 
-// Activity checkboxes:
+// control data structure for activity checkboxes
 // - Price is set if != DEFAULT_PRICE
 // - Potentially conflicting activities have the same timeslot id
 const aActivity= [
@@ -22,9 +35,10 @@ const aActivity= [
   { name: 'node',    timeslot: 2 }
 ];
 
-// control data structure for all input edit/email fields
+// control data structure for all input edit/email fields used for validation
 // id: input field id
 // validate: array of regular expressions/messages for validation; sorted by less to more specific
+//           some regex enforce 3 chars minimum rule to guard against accidental typing of 1 or 2 chars
 // mode: position in the DOM where the validation message is created
 // specialCond: optional pre-condition for validation
 const aInput = [
@@ -125,7 +139,7 @@ $('form').trigger('reset');
 // Job role dropdown listbox
 $('#title').on('change', function() {
   
-  if ( $(this).val() === 'other') {
+  if ($(this).val() === 'other') {
     $jobrole.fadeIn('fast');
     $jobrole.focus();
   } else {
@@ -170,6 +184,7 @@ $('#payment').on('change', function() {
 });
 
 // filters t-shirt info color dropdown listbox 
+// hides options that don't match filterRegex
 const updateTshirtColor = filterRegex => {
   
   const $colors = $('#color option');
@@ -195,11 +210,11 @@ $('#design').on('change', function() {
   switch ( $('#design option:selected').val() ) {
   
     case 'js puns':
-      updateTshirtColor(/JS Puns/)
+      updateTshirtColor(/JS Puns/);
       $tshirtColor.show();
       break;
     case 'heart js':
-      updateTshirtColor(/I.+JS/)
+      updateTshirtColor(/I.+JS/);
       $tshirtColor.show();
       break;
     default:
@@ -213,7 +228,7 @@ $('#design').on('change', function() {
 // Validates text/email input with given inputId
 const validateRegex = inputId => {
 
-  // lookup object for the given inputId
+  // lookup object for given inputId
   const oInput = aInput.find( obj => obj.id === inputId);
   
   // If special condition is set, it must be true for validation to be executed
@@ -233,7 +248,7 @@ const validateRegex = inputId => {
       break;
     }
   }
-
+  // in case of validation error
   if (msg) {
     // Show validation message, hide ok icon
     msg = formatErrorMessage(msg);
@@ -353,7 +368,7 @@ $('#payment option[value="select_method"]').attr('hidden', true);
 $('#payment option[value="credit card"]').attr('selected', true);
 updatePayment();
 
-// make sure 'expiration date dropdown' is on its own row if validation messages are displayed 
+// make sure 'expiration date dropdown' is on its own row by clearing floats if validation messages are displayed 
 $('label[for="exp-month"]').prepend('<div class="clearfix"></div>');
 
 $('.activities').after('<div class="price">Total: $0</price></div>');

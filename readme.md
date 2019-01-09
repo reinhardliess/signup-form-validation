@@ -71,7 +71,7 @@ The following fields should have some obvious form of an error indication:
 
 ### Some Additional remarks
 
-* 
+* style.css: additional styles are marked with ´(RL)´
 * 
 * 
 * 
