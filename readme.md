@@ -76,6 +76,7 @@ The following fields should have some obvious form of an error indication:
 * style.css: additional styles are marked with `(RL)`
 * All text/email fields are validated in real time, displaying validation messages as needed. Some fields (name, email) display different messages according to the user's input.
 * The validation is performed dynamically and controlled by the `aInput[]` array which contains all necessary regular expressions, validation messages and additional program logic where necessary.
+* Tested in Chrome, Firefox and Opera
     
     
 ### Some additional coding conventions

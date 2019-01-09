@@ -25,7 +25,7 @@ const CC_NUM = 3;
 const DEFAULT_PRICE = 100;
 
 // control data structure for activity checkboxes
-// - Price is set if != DEFAULT_PRICE
+// - price is set if != DEFAULT_PRICE
 // - Potentially conflicting activities have the same timeslot id
 const aActivity= [
   { name: 'all', price: 200 },
