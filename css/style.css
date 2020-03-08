@@ -1,4 +1,4 @@
-/* ================================= 
+/* =================================
   Base Element Styles
 ==================================== */
 
@@ -13,14 +13,13 @@ button {
 }
 
 body {
-  /* font: 1em/1.5; illegal property (RL)*/
   font: 1em/1.5 'Roboto', sans-serif;
   color: #184f68;
-	background: #accbd9;
+	background: #ccc;
 }
 
 header {
-	text-align: center;  
+	text-align: center;
 }
 
 h1 {
@@ -33,15 +32,14 @@ a {
   text-decoration: none;
 }
 
-/* ================================= 
+/* =================================
   Form Element Styles
 ==================================== */
 
 form {
 	padding: .875em 1.875em 1.875em;
-	background: #85b5ca;
-  /* (RL) */
-  border-radius: 20px; 
+	background: #eee;
+  border-radius: 20px;
   margin-bottom: 60px;
 }
 
@@ -58,7 +56,7 @@ fieldset {
 
 legend,
 button {
-	font-size: 1.25em;	
+	font-size: 1.25em;
 }
 
 legend {
@@ -82,20 +80,19 @@ label {
 
 input,
 select {
-	margin-bottom: 1.125em;	
+	margin-bottom: 1.125em;
 }
 
 input {
 	font-size: 1em;
 	font-weight: 500;
 	padding: .8em;
-	background: #c1deeb;
-	border: 2px solid #c1deeb;
+	background: #ddd;
+	border: 2px solid #ddd;
 	outline: none;
 }
 
 input:focus {
-	/* background: #fff; resets background-image (RL)*/
 	background-color: #fff;
 	border-color: #5e97b0;
 	transition: border-color .4s, background-color .4s;
@@ -112,7 +109,6 @@ button {
 	background: #22627e;
 	margin: 1.25em 0 .5em;
 	cursor: pointer;
-  /* (RL) */
   border-radius: 5px;
 }
 
@@ -120,7 +116,7 @@ button:hover {
 	background: #184c62;
 }
 
-/* ================================= 
+/* =================================
   Page Styles
 ==================================== */
 
@@ -142,7 +138,7 @@ button:hover {
 	margin-top: 1.25em;
 }
 
-/* Additional styles (RL) */
+/* Additional styles */
 
 .isDisabled {
   text-decoration: line-through;
@@ -171,7 +167,7 @@ button:hover {
 
 .val-ok-input {
   background-position: 98% center;
-  background-size: 16px; 
+  background-size: 16px;
 }
 
 .val-ok-legend {
@@ -179,9 +175,9 @@ button:hover {
   background-size: 16px;
 }
 
-/* (RL) end */
+/* additional styles end */
 
-/* ================================= 
+/* =================================
   Helper Classes
 ==================================== */
 
@@ -195,7 +191,7 @@ button:hover {
   clear: both;
 }
 
-/* ================================= 
+/* =================================
   Media Queries
 ==================================== */
 
